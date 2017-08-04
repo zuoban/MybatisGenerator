@@ -12,28 +12,38 @@
             <property name="suppressAllComments" value="false"></property>
         </commentGenerator>
 
+
+
+        <!-- oracle, 驱动自行添加-->
         <jdbcConnection driverClass="oracle.jdbc.driver.OracleDriver"
-                        connectionURL="jdbc:oracle:thin:@10.211.55.3:1521:ORCL"
-                        userId="gpms"
-                        password="1">
+                        connectionURL="jdbc:oracle:thin:@localhost:1521:ORCL"
+                        userId=""
+                        password="">
             <property name="remarksReporting" value="true"></property>
         </jdbcConnection>
+
+        <!-- mysql -->
+        <!--<jdbcConnection driverClass="com.mysql.jdbc.Driver"-->
+                        <!--connectionURL="jdbc:mysql://localhost:3306/test"-->
+                        <!--userId=""-->
+                        <!--password="">-->
+        <!--</jdbcConnection>-->
 
 
         <javaTypeResolver >
             <property name="forceBigDecimals" value="false" />
         </javaTypeResolver>
 
-        <javaModelGenerator targetPackage="com.bs.gpms.founda.suppliers.tender.entity" targetProject="target">
+        <javaModelGenerator targetPackage="com.zuoban.entity" targetProject="target">
             <property name="enableSubPackages" value="false" />
             <property name="trimStrings" value="true" />
         </javaModelGenerator>
 
-        <sqlMapGenerator targetPackage="com.bs.gpms.founda.suppliers.tender.mapper"  targetProject="target">
+        <sqlMapGenerator targetPackage="com.zuoban.mapper"  targetProject="target">
             <property name="enableSubPackages" value="false" />
         </sqlMapGenerator>
 
-        <javaClientGenerator type="XMLMAPPER" targetPackage="com.bs.gpms.founda.suppliers.tender.dao"  targetProject="target">
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.zuoban.dao"  targetProject="target">
             <property name="enableSubPackages" value="false" />
         </javaClientGenerator>
 

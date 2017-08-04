@@ -86,3 +86,9 @@ crashlytics.properties
 crashlytics-build.properties
 fabric.properties
 
+.DS_Store
+.idea/
+MybatisGenerator.iml
+lib/
+pom.xml
+src/
