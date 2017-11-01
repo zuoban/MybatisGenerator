@@ -2,59 +2,40 @@
 <!DOCTYPE generatorConfiguration
         PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
         "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
-
 <generatorConfiguration>
-    <!--<classPathEntry location="/Program Files/IBM/SQLLIB/java/db2java.zip" />-->
+    <properties resource="generatorConfig.properties"/>
     <context id="test" targetRuntime="MyBatis3">
-        <plugin type="org.mybatis.generator.plugins.SerializablePlugin"></plugin>
-
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>
+        <plugin type="org.mybatis.generator.plugins.FluentBuilderMethodsPlugin"/>
+        <plugin type="org.mybatis.generator.plugins.CaseInsensitiveLikePlugin"/>
         <commentGenerator type="com.zuoban.tools.MyGenerator">
-            <property name="suppressAllComments" value="false"></property>
+            <property name="suppressDate" value="true"/>
+            <property name="suppressAllComments" value="false"/>
         </commentGenerator>
-
-
-
         <!-- oracle, 驱动自行添加-->
-        <jdbcConnection driverClass="oracle.jdbc.driver.OracleDriver"
-                        connectionURL="jdbc:oracle:thin:@localhost:1521:ORCL"
-                        userId=""
-                        password="">
-            <property name="remarksReporting" value="true"></property>
+        <jdbcConnection driverClass="${mybatis.generator.jdbcDriver}"
+                        connectionURL="${mybatis.generator.jdbcURL}"
+                        userId="${mybatis.generator.jdbcUserId}"
+                        password="${mybatis.generator.jdbcPassword}">
+            <property name="remarksReporting" value="true"/>
         </jdbcConnection>
-
-        <!-- mysql -->
-        <!--<jdbcConnection driverClass="com.mysql.jdbc.Driver"-->
-                        <!--connectionURL="jdbc:mysql://localhost:3306/test"-->
-                        <!--userId=""-->
-                        <!--password="">-->
-        <!--</jdbcConnection>-->
-
-
-        <javaTypeResolver >
-            <property name="forceBigDecimals" value="false" />
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
         </javaTypeResolver>
 
-        <javaModelGenerator targetPackage="com.zuoban.entity" targetProject="target">
-            <property name="enableSubPackages" value="false" />
-            <property name="trimStrings" value="true" />
+        <javaModelGenerator targetPackage="${package.base}.entity" targetProject="${mybatis.generator.outputDirectory}">
+            <property name="enableSubPackages" value="false"/>
+            <property name="trimStrings" value="true"/>
         </javaModelGenerator>
 
-        <sqlMapGenerator targetPackage="com.zuoban.mapper"  targetProject="target">
-            <property name="enableSubPackages" value="false" />
+        <sqlMapGenerator targetPackage="${package.base}.mapper" targetProject="${mybatis.generator.outputDirectory}">
+            <property name="enableSubPackages" value="false"/>
         </sqlMapGenerator>
 
-        <javaClientGenerator type="XMLMAPPER" targetPackage="com.zuoban.dao"  targetProject="target">
-            <property name="enableSubPackages" value="false" />
+        <javaClientGenerator type="XMLMAPPER" targetPackage="${package.base}.dao"
+                             targetProject="${mybatis.generator.outputDirectory}">
+            <property name="enableSubPackages" value="false"/>
         </javaClientGenerator>
-
-        <!--<table schema="DB2ADMIN" tableName="ALLTYPES" domainObjectName="Customer" >-->
-            <!--<property name="useActualColumnNames" value="true"/>-->
-            <!--<generatedKey column="ID" sqlStatement="DB2" identity="true" />-->
-            <!--<columnOverride column="DATE_FIELD" property="startDate" />-->
-            <!--<ignoreColumn column="FRED" />-->
-            <!--<columnOverride column="LONG_VARCHAR_FIELD" jdbcType="VARCHAR" />-->
-        <!--</table>-->
-        <table tableName="proj_bidfor"></table>
-
+        <table tableName="x"/>
     </context>
 </generatorConfiguration>
