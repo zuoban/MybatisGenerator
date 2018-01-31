@@ -7,6 +7,8 @@ import org.mybatis.generator.config.xml.ConfigurationParser;
 import org.mybatis.generator.internal.DefaultShellCallback;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
 
@@ -18,9 +20,13 @@ public class App {
     private static String dao = generatorConfig.getString("package.suffix.dao");
     private static String mapper = generatorConfig.getString("package.suffix.mapper");
     private static String entity = generatorConfig.getString("package.suffix.entity");
+    private static String deletePrevious= generatorConfig.getString("delete.previous");
+    private static String previousFirstName= generatorConfig.getString("previous.package.firstName");
     private static File targetFile = new File("target");
 
+
     public static void main(String[] args) throws Exception {
+        deletePrevious();
         printInfo();
         List<String> warnings = new ArrayList<>();
         boolean overwrite = true;
@@ -47,6 +53,16 @@ public class App {
         myBatisGenerator.generate(new VerboseProgressCallback());
     }
 
+    private static void deletePrevious() {
+        if (Boolean.TRUE.toString().equals(deletePrevious)) {
+            try {
+                deleteDirectory(new File(targetFile, previousFirstName));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     private static void printInfo() {
         Map<String, String> map = new HashMap<>();
         map.put("表名", tables);
@@ -64,4 +80,59 @@ public class App {
         System.out.println("\n\n*******************************************************\n\n");
     }
 
+    public static void cleanDirectory(File directory) throws IOException {
+        String message;
+        if (!directory.exists()) {
+            message = directory + " does not exist";
+            throw new IllegalArgumentException(message);
+        } else if (!directory.isDirectory()) {
+            message = directory + " is not a directory";
+            throw new IllegalArgumentException(message);
+        } else {
+            File[] files = directory.listFiles();
+            if (files == null) {
+                throw new IOException("Failed to list contents of " + directory);
+            } else {
+                IOException exception = null;
+
+                for(int i = 0; i < files.length; ++i) {
+                    File file = files[i];
+
+                    try {
+                        forceDelete(file);
+                    } catch (IOException var6) {
+                        exception = var6;
+                    }
+                }
+
+                if (null != exception) {
+                    throw exception;
+                }
+            }
+        }
+    }
+    public static void forceDelete(File file) throws IOException {
+        if (file.isDirectory()) {
+            deleteDirectory(file);
+        } else {
+            if (!file.exists()) {
+                throw new FileNotFoundException("File does not exist: " + file);
+            }
+
+            if (!file.delete()) {
+                String message = "Unable to delete file: " + file;
+                throw new IOException(message);
+            }
+        }
+
+    }
+    public static void deleteDirectory(File directory) throws IOException {
+        if (directory.exists()) {
+            cleanDirectory(directory);
+            if (!directory.delete()) {
+                String message = "Unable to delete directory " + directory + ".";
+                throw new IOException(message);
+            }
+        }
+    }
 }
