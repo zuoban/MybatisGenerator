@@ -82,7 +82,7 @@ public class MyGenerator extends DefaultCommentGenerator{
 		String remarks = introspectedColumn.getRemarks();
 		remarks = " * " + (remarks == null ? "" :remarks);
 		field.addJavaDocLine(remarks);
-		field.addJavaDocLine(" * " + introspectedColumn.getActualColumnName() + "("+introspectedColumn.getLength()+")");
+//		field.addJavaDocLine(" * " + introspectedColumn.getActualColumnName() + "("+introspectedColumn.getLength()+")");
 		field.addJavaDocLine(" */");
 	}
 
