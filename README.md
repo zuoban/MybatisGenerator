@@ -2,7 +2,7 @@
 
 自定义注释生成器，将数据库字段备注写入生成的实体类中。
 
-用法：
+## 用法：
 1. 配置 `src/main/resources/ generatorConfig.properties`
 ```
 mybatis.generator.outputDirectory=target
