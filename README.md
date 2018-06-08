@@ -29,6 +29,9 @@ package.suffix.entity=entity
 
 ## -------------- 要生成的表名多个用,分隔 --------------##
 mybatis.generator.tableName= table1, table2
+
+# 是否使用lombok 插件， 若为true 生成的实体类会添加@Data注解并去除getter,setter
+lombok=true
 ```
 
 2. 运行 `main/java/App.java`
